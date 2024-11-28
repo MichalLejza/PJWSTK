@@ -1,0 +1,16 @@
+Alfa, 2009, stary, Dzikie, 1;
+Wilczur, 2008, stary, Dzikie, 2;
+Wilczek, 2020, mlody, Dzikie, 3;
+Wilku, 2020, mlody, Dzikie, 4;
+Wilczyca, 2008, stary, 2;
+Gazela, 2009, stary, 2;
+Gryzelda, 2018, mlody, 0;
+Frania, 2019, mlody, 0;
+Alfa, 2008, stary, Wesole, 1;
+Kajtek, 2007, stary, Wesole, 2;
+Wilczurek, 2020, mlody, Wesole, 3;
+Mlody, 2021, mlody, Wesole, 4;
+Starsza, 2010, stary, 3;
+Wesola, 2011, stary, 1;
+Wilczka, 2021, mlody, 0;
+Wilczunia, 2022, mlody, 0;
