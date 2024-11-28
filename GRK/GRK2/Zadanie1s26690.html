@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ModelKolorowRGB</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+<script>
+  function preload()
+  {
+    img = loadImage("https://raw.githubusercontent.com/scikit-image/scikit-image/master/skimage/data/astronaut.png");
+    imgR = createImage(256, 256);
+    imgG = createImage(256, 256);
+    imgB = createImage(256, 256);
+    imgSum = createImage(256, 256);
+  }
+
+  function setup() {
+    createCanvas(512, 512);
+    img.resize(256, 256);
+    img.loadPixels();
+    imgR.loadPixels();
+    imgG.loadPixels();
+    imgB.loadPixels();
+
+    for (let x = 0; x < img.width; x++)
+    {
+      for (let y = 0; y < img.height; y++)
+      {
+        let pos = 4 * (y * img.width + x);
+        imgR.pixels[pos] = img.pixels[pos]; // wartość dla R
+        imgR.pixels[pos + 1] = 0; // wartość dla G
+        imgR.pixels[pos + 2] = 0; // wartość dla B
+        imgR.pixels[pos + 3] = 255; // wartość dla Alpha
+
+        imgG.pixels[pos] = 0; // wartość dla R
+        imgG.pixels[pos + 1] = img.pixels[pos + 1]; // wartość dla G
+        imgG.pixels[pos + 2] = 0; // wartość dla B
+        imgG.pixels[pos + 3] = 255; // wartość dla Alpha
+
+        imgB.pixels[pos] = 0; // wartość dla R
+        imgB.pixels[pos + 1] = 0; // wartość dla G
+        imgB.pixels[pos + 2] = img.pixels[pos + 2]; // wartość dla B
+        imgB.pixels[pos + 3] = 255; // wartość dla Alpha
+      }
+    }
+
+    imgR.updatePixels();
+    imgG.updatePixels();
+    imgB.updatePixels();
+
+    imgSum.blend(imgR, 0, 0, 256, 256, 0, 0, 256, 256, ADD);
+    imgSum.blend(imgG, 0, 0, 256, 256, 0, 0, 256, 256, ADD);
+    imgSum.blend(imgB, 0, 0, 256, 256, 0, 0, 256, 256, ADD);
+  }
+
+  function draw() {
+    image(imgR, 0, 0);
+    image(imgG, 0, 256);
+    image(imgB, 256, 0);
+    image(imgSum, 256, 256);
+  }
+</script>
+</body>
+</html>

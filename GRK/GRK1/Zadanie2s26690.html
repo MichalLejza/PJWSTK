@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradient</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+<script>
+    function setup() {
+        createCanvas(800, 600);
+
+        let inter = 0
+        for (let x = 0; x < width; x++) {
+            inter += 255 / 800
+            for (let y = 0; y < height; y++)
+                set(x, y, color(inter));
+        }
+        updatePixels();
+    }
+
+    function draw() {
+
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zadanie4</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+<script>
+    let imgA;
+    let imgB;
+
+    let x0;
+    let y0;
+
+    function setup()
+    {
+        pixelDensity(1);
+        createCanvas(512,512);
+        background(200);
+        imgA = createImage(512, 512);
+        imgB = createImage(512,512);
+        imgA.loadPixels();
+        imgB.loadPixels();
+        let d = pixelDensity();
+        for(let i=0; i<512*512*4*d; i+=4)
+        {
+            imgA.pixels[i]=240;
+            imgA.pixels[i + 1]=250;
+            imgA.pixels[i + 2]=200;
+            imgA.pixels[i + 3]=255;
+            imgB.pixels[i]=240;
+            imgB.pixels[i + 1]=200;
+            imgB.pixels[i + 2]=250;
+            imgB.pixels[i + 3]=255;
+        }
+        imgA.updatePixels();
+        imgB.updatePixels();
+    }
+
+
+    function applyUnit(vector)
+    {
+        let matrix = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
+        let newVector = [0, 0, 0];
+        for (let i = 0; i < vector.length; i++)
+        {
+            for (let j = 0; j < vector.length; j++)
+                newVector[i] += vector[j] * matrix[i][j];
+        }
+        return newVector;
+    }
+
+
+    function applyTranslation(vector, tx, ty)
+    {
+        let matrix = [[1, 0, tx], [0, 1, ty], [0, 0, 1]]
+        let newVector = [0, 0, 0];
+        for (let i = 0; i < vector.length; i++)
+        {
+            for (let j = 0; j < vector.length; j++)
+                newVector[i] += vector[j] * matrix[i][j];
+        }
+        return newVector;
+    }
+
+
+    function applyScale(vector, sx, sy)
+    {
+        let matrix = [[sx, 0, 0], [sy, 1, 0], [0, 0, 1]]
+        let newVector = [0, 0, 0];
+        for (let i = 0; i < vector.length; i++)
+        {
+            for (let j = 0; j < vector.length; j++)
+                newVector[i] += vector[j] * matrix[i][j];
+        }
+        return newVector;
+    }
+
+
+    function applyRotate(vector, degrees)
+    {
+        let newVector = [0, 0, 0];
+        let radians = degrees * Math.PI / 180;
+        newVector[0] = vector[0] * Math.cos(radians) - vector[1] * Math.sin(radians);
+        newVector[1] = vector[0] * Math.sin(radians) + vector[1] * Math.cos(radians);
+        newVector[2] = vector[2]
+        return newVector;
+    }
+
+
+    function applyShear(vector, shx, shy)
+    {
+        let matrix = [[1, shx, 0], [shy, 1, 0], [0, 0, 1]]
+        let newVector = [0, 0, 0];
+        for (let i = 0; i < vector.length; i++)
+        {
+            for (let j = 0; j < vector.length; j++)
+                newVector[i] += vector[j] * matrix[i][j];
+        }
+        return newVector;
+    }
+
+
+    function makeVector(x, y)
+    {
+        return [x, y, 1];
+    }
+
+
+    function drawVector(img, vec)
+    {
+        img.set(vec[0], vec[1], 0);
+        img.updatePixels();
+    }
+
+
+    function mouseDragged()
+    {
+        x0 = mouseX;
+        y0 = mouseY;
+        let vec = makeVector(mouseX, mouseY);
+        let vec1 = applyTranslation(applyRotate(applyScale(vec, 1.1, 1.1), 90), 50, 50)
+        let vec2 = applyScale(applyTranslation(applyRotate(vec, 90), 50, 50), 1.1, 1.1)
+
+        drawVector(imgA, vec1);
+        drawVector(imgB, vec2);
+    }
+
+
+    function draw() {
+        if (!keyIsDown(32)) {
+            image(imgA, 0, 0);
+            text('Image A', 10, 20);
+        } else {
+            image(imgB, 0, 0);
+            text('Image B', 10, 20);
+        }
+    }
+</script>
+</body>
+</html>

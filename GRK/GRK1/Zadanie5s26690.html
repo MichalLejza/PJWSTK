@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sierpinski Triangle</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+<script>
+    let x1, y1, x2, y2, x3, y3;
+    let cx, cy;
+
+    function setup() {
+        createCanvas(800, 600);
+        noLoop();
+        x1 = (width - 200) / 2;
+        y1 = 100;
+
+        x2 = 100;
+        y2 = height - 100;
+
+        x3 = width - 300;
+        y3 = height - 100;
+
+        cx = x1;
+        cy = y1;
+        stroke(255);
+    }
+
+    function draw() {
+        background(0);
+
+        point(x1, y1);
+        point(x2, y2);
+        point(x3, y3);
+
+        for (let i = 0; i < 30000; i++)
+        {
+            let rand = Math.floor(Math.random() * 3);
+            switch (rand)
+            {
+                case 0:
+                    cx = (cx + x1) / 2;
+                    cy = (cy + y1) / 2;
+                    break;
+                case 1:
+                    cx = (cx + x2) / 2;
+                    cy = (cy + y2) / 2;
+                    break;
+                default:
+                    cx = (cx + x3) / 2;
+                    cy = (cy + y3) / 2;
+                    break;
+            }
+            point(cx, cy);
+        }
+    }
+</script>
+</body>
+</html>

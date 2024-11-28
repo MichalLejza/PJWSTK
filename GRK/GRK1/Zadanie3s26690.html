@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two Gradients</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+<script>
+    function setup() {
+        createCanvas(800, 600);
+
+        for (let x = 0; x < width; x++) {
+            for (let y = 0; y < height; y++) {
+                let dX = x - width / 2
+                let dY = y - height / 2
+                let distance = sqrt(dX * dX + dY * dY);
+                let radius = 230
+
+                let red = 0
+                let green = 255
+                let blue = 255 * ((x + (y * 8/6)) / (width + height));
+
+                if (distance < radius) {
+                    green -= 255 - 255 / radius * distance
+                    red = 255 - 255 / radius * distance
+                }
+                set(x, y, color(red, green, blue));
+            }
+        }
+        updatePixels();
+    }
+
+    function draw() {
+        // No need to draw anything continuously
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+<script>
+    function drawLawn(lawnHeight)
+    {
+        for (let x = 0; x < width; x++)
+            for (let y = height; y > height - lawnHeight; y--)
+                set(x, y, color(0, 150, 0));
+
+    }
+
+    function drawHouse(houseHeight, houseWidth, yHouse, xHouse)
+    {
+        for (let x = xHouse; x < xHouse + houseWidth; x++) {
+            for (let y = yHouse; y > yHouse - houseHeight; y--) {
+                set(x, y, color(110, 64, 51));
+            }
+        }
+    }
+
+    function drawRoof(roofHeight, roofWidth, yRoof, xRoof)
+    {
+        for (let y = yRoof; y > yRoof - roofHeight; y--)
+        {
+            let bufor = abs(y - yRoof) / roofHeight;
+            let xBufor = (roofWidth / 2) * bufor;
+            for (let x = xRoof + xBufor; x < xRoof + roofWidth - xBufor; x++)
+            {
+                set(x, y, color(250, 100, 100));
+            }
+        }
+    }
+
+    function drawFlowers(lawnHeight)
+    {
+        for (let i = 0; i < 1000; i++)
+        {
+            let randomX = Math.floor(Math.random() * width);
+            let randomY = Math.floor(Math.random() * lawnHeight) + 400;
+            let randomR = Math.floor(Math.random() * 255);
+            let randomG = Math.floor(Math.random() * 255);
+            let randomB = Math.floor(Math.random() * 255);
+            set(randomX, randomY, color(randomR, randomG, randomB));
+        }
+    }
+
+    function setup() {
+        createCanvas(800, 600);
+        background(color(180, 180, 250))
+        noLoop();
+    }
+
+    function draw()
+    {
+        background(color(180, 180, 250))
+        let lawnHeight = 200;
+
+        let houseHeight = 200;
+        let houseWidth = 400;
+        let yHouse = height - lawnHeight;
+        let xHouse = 200;
+
+        let roofWidth = 600;
+        let roofHeight = 155;
+        let yRoof = yHouse - houseHeight;
+        let xRoof = 100
+
+        drawLawn(lawnHeight);
+        drawHouse(houseHeight, houseWidth, yHouse, xHouse);
+        drawRoof(roofHeight, roofWidth, yRoof, xRoof);
+        drawFlowers(lawnHeight);
+        updatePixels();
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgorytmBresenhama</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+<script>
+    let x0 = -1;
+    let y0 = -1;
+    let x1 = -1;
+    let y1 = -1;
+
+    function setup()
+    {
+        createCanvas(512, 512);
+        pixelDensity(1);
+        background(240);
+    }
+
+    function mousePressed() {
+        x0 = mouseX;
+        y0 = mouseY;
+    }
+
+    function mouseDragged() {
+        x1 = mouseX;
+        y1 = mouseY;
+        background(240);
+        noStroke();
+        fill('red');
+        ellipse(x0-3, y0-3, 6);
+        fill('green');
+        ellipse(x1-3, y1-3, 6);
+    }
+
+    function mouseReleased() {
+        background(240);
+        loadPixels();
+        draw_line();
+        updatePixels();
+    }
+
+    function set_pixels(x, y, r, g, b) {
+        let idx = (y * width + x) * 4;
+        pixels[idx] = r;
+        pixels[idx + 1] = g;
+        pixels[idx + 2] = b;
+        pixels[idx + 3] = 255;
+    }
+
+    function draw_line2() {
+        let dx = x1 - x0;
+        let dy = y1 - y0;
+
+        let a = dy/dx;
+        b = y0 - a * x0;
+
+        for (let x = 0; x < width; x++)
+        {
+            for (let y = 0; y < height; y++)
+            {
+                let distance = dy/dx * (x - x0) - (y - y0);
+                set_pixels(x, y, 0 - distance, distance, 0);
+            }
+        }
+    }
+
+    function draw_line() {
+        let dx = x1 - x0;
+        let dy = y1 - y0;
+
+        let a = dy/dx;
+        b = y0 - a * x0;
+
+        for (let x = 0; x < width; x++)
+        {
+            for (let y = 0; y < height; y++)
+            {
+                let distance = dy/dx * (x - x0) - (y - y0);
+                if (distance < 0)
+                    set_pixels(x, Math.floor(y), 255, 0, 0);
+                else if (distance > 0)
+                    set_pixels(x, Math.floor(y), 0, 255, 0);
+                else
+                    set_pixels(x, Math.floor(y), 0, 0, 0);
+            }
+        }
+    }
+
+    function draw() {
+    }
+</script>
+</body>
+</html>

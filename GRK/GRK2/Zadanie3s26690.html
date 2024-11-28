@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saturation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+<script>
+    function preload()
+    {
+        img = loadImage("https://raw.githubusercontent.com/scikit-image/scikit-image/master/skimage/data/astronaut.png");
+        imgH = createImage(256, 256);
+        imgS = createImage(256, 256);
+        imgV = createImage(256, 256);
+    }
+
+    function setup() {
+        createCanvas(512, 512);
+        img.resize(256, 256);
+        img.loadPixels();
+        imgH.loadPixels();
+        imgS.loadPixels();
+        imgV.loadPixels();
+
+        for (let x = 0; x < img.width; x++)
+        {
+            for (let y = 0; y < img.height; y++)
+            {
+                let pos = 4 * (y * img.width + x);
+                imgH.pixels[pos] = 0;
+                imgH.pixels[pos + 1] = 0; // wartość dla G
+                imgH.pixels[pos + 2] = 0; // wartość dla B
+                imgH.pixels[pos + 3] = 0; // wartość dla Alpha
+
+                imgS.pixels[pos] = 0; // wartość dla R
+                imgS.pixels[pos + 1] = 0;
+                imgS.pixels[pos + 2] = 0; // wartość dla B
+                imgS.pixels[pos + 3] = 0; // wartość dla Alpha
+
+                imgV.pixels[pos] = 0; // wartość dla R
+                imgV.pixels[pos + 1] = 0; // wartość dla G
+                imgV.pixels[pos + 2] = 0;
+                imgV.pixels[pos + 3] = 0; // wartość dla Alpha
+
+                let r = img.pixels[pos]/255;
+                let g = img.pixels[pos+1]/255;
+                let b = img.pixels[pos+2]/255;
+                let cmax = Math.max(r,g,b);
+                let cmin = Math.min(r,g,b);
+                imgV.set(x,y,255 * cmax);
+
+                let c = cmax-cmin;
+                let s=c/cmax;
+                imgS.set(x, y, 255*s);
+            }
+        }
+
+        imgH.updatePixels();
+        imgS.updatePixels();
+        imgV.updatePixels();
+    }
+
+    function draw() {
+        image(imgH, 0, 0);
+        image(imgS, 256, 0);
+        image(imgV, 0, 256);
+        image(img, 256, 256);
+    }
+</script>
+</body>
+</html>
