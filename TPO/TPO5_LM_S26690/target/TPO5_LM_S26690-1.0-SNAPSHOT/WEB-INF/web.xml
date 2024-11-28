@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+
+    <servlet>
+        <servlet-name>InputServlet</servlet-name>
+        <servlet-class>org.example.tpo5_lm_s26690.InputServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InputServlet</servlet-name>
+        <url-pattern>/InputServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FetchDataServlet</servlet-name>
+        <servlet-class>org.example.tpo5_lm_s26690.FetchDataServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FetchDataServlet</servlet-name>
+        <url-pattern>/FetchDataServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ResponseServlet</servlet-name>
+        <servlet-class>org.example.tpo5_lm_s26690.ResponseServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ResponseServlet</servlet-name>
+        <url-pattern>/ResponseServlet</url-pattern>
+    </servlet-mapping>
+</web-app>

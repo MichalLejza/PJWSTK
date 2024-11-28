@@ -1,0 +1,63 @@
+1. Zadanie: Prosty czat (15p) + GUI (5p)
+
+Rozważyć korzystanie z słuchaczy wiadomości (MessageListener)
+
+2. Wyklady TPO: 
+
+2a. Interakcja za pomocą komunikatów (JMS)
+2b. Identyfikacja zasobów (JNDI)
+
+3. Serwery do wyboru:
+
+OpenJMS (https://openjms.sourceforge.net/)
+
+(Uwaga: Do uruchomienia OpenJMS potrzebne JRE 8 oraz JAVA_HOME)
+
+lub
+
+Apache ActiveMQ (https://activemq.apache.org/)
+z Web Console (https://activemq.apache.org/web-console)
+
+4. Ważniejsze biblioteki:
+
+4a. Dla OpenJMS:
+
+openjms-0.7.7-beta-1/lib, w szczególności: openjms-0.7.7-beta-1.jar
+
+4b. Dla Apache ActiveMQ:
+
+activemq-all-5.18.4.jar
+lib/optional/log4j-api-2.23.1.jar
+lib/optional/log4j-core-2.23.1.jar
+ 
+5. JNDI
+
+5a. Programistycznie (w kodzie):
+
+Dla OpenJMS:
+
+Hashtable env = new Hashtable(11);
+env.put(Context.INITIAL_CONTEXT_FACTORY, "org.exolab.jms.jndi.InitialContextFactory");
+env.put(Context.PROVIDER_URL, "tcp://localhost:3035");
+
+potem
+
+Context ctx = new InitialContext(env);
+
+Dla Apache ActiveMQ:
+
+Hashtable env = new Hashtable(11);
+env.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+env.put(Context.PROVIDER_URL, "tcp://localhost:61616");
+env.put("queue.myQueue", "myQueue");
+
+potem
+
+Context ctx = new InitialContext(env);
+
+5b. Skorzystać z pliku jndi.properties dostępnego na ścieżce classpath
+
+Context ctx = new InitialContext();
+
+6. API DOC:	
+https://docs.oracle.com/javaee/7/api/index.html?javax/jms/package-summary.html
